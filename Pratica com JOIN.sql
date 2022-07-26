@@ -94,3 +94,34 @@ ORDER BY users.id ASC, "startDate" ASC;
 --
 --
 --
+
+--
+-- Questão 5 - BONUS ! 
+-- Utilizando uma query, obtenha a lista das diferentes escolas
+-- (schools) e cursos (courses) onde estudaram as pessoas que
+-- estão aplicando pra posição de “Software Engineer” na empresa
+-- com id 10. Só devem ser consideradas as vagas que estiverem
+-- ativas, ou seja, quando o campo active da tabela jobs estiver true.
+--
+-- A resposta deve vir no formato:
+-- |---id---|---school---|--------course--------|----company----|--------role-------|
+--      1       Driven       Software Engineer        OLX         Software Engineer
+--     ...       ...               ...                 ...               ...
+
+-- RESPOSTA da questão 5 BONUS
+
+SELECT schools.id, schools.name, courses.name, companies.name, roles.name
+FROM applicants
+	JOIN jobs ON applicants."jobId" = jobs.id --me da role e company
+	JOIN users ON applicants."userId" = users.id
+	JOIN educations ON users.id = educations."userId" -- me da school e course
+	JOIN schools ON educations."schoolId" = schools.id
+	JOIN courses ON educations."courseId" = courses.id
+	JOIN companies ON jobs."companyId" = companies.id
+	JOIN roles ON jobs."roleId" = roles.id
+WHERE jobs.active IS TRUE AND roles.name = 'Software Engineer'
+ORDER BY schools.id ASC;
+
+--
+--
+--
