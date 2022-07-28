@@ -33,8 +33,8 @@ ORDER BY id ASC;
 
 SELECT testimonials.id, u1.name as writer, u2.name as recipient, testimonials.message
 FROM testimonials 
-    JOIN users as u1 ON testimonials."writerId" = u1.id 
-    JOIN users as u2 ON testimonials."recipientId" = u2.id 
+	JOIN users as u1 ON testimonials."writerId" = u1.id 
+	JOIN users as u2 ON testimonials."recipientId" = u2.id 
 ORDER BY id ASC;
 
 --
@@ -112,14 +112,14 @@ ORDER BY users.id ASC, "startDate" ASC;
 
 SELECT schools.id, schools.name, courses.name, companies.name, roles.name
 FROM applicants
-	JOIN jobs ON applicants."jobId" = jobs.id --me da role e company
+	JOIN jobs ON applicants."jobId" = jobs.id
 	JOIN users ON applicants."userId" = users.id
-	JOIN educations ON users.id = educations."userId" -- me da school e course
+	JOIN educations ON users.id = educations."userId"
 	JOIN schools ON educations."schoolId" = schools.id
 	JOIN courses ON educations."courseId" = courses.id
 	JOIN companies ON jobs."companyId" = companies.id
 	JOIN roles ON jobs."roleId" = roles.id
-WHERE jobs.active IS TRUE AND roles.name = 'Software Engineer'
+WHERE jobs.active IS TRUE AND roles.name = 'Software Engineer' AND companies.id = 10
 ORDER BY schools.id ASC;
 
 --
