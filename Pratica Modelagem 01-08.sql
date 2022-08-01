@@ -80,11 +80,15 @@ CREATE TABLE "public.cart" (
 
 
 
+CREATE TYPE PURCHASE_STATUS AS ENUM ('created', 'payed', 'delivered', 'cancelled');
+
+
+
 CREATE TABLE "public.purchases" (
 	"purchase_id" serial NOT NULL,
 	"user_id" serial NOT NULL,
 	"cart_id" serial NOT NULL,
-	"TYPE: status" TEXT NOT NULL UNIQUE,
+	"status" PURCHASE_STATUS NOT NULL DEFAULT 'created',
 	"purchase_date" DATE NOT NULL DEFAULT 'NOW()',
 	CONSTRAINT "purchases_pk" PRIMARY KEY ("purchase_id")
 ) WITH (
